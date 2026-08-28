@@ -14,7 +14,7 @@ router.get("/menu", getMenu);
 
 router.get("/menu/:id", getProduct);
 
-router.post("/", validateProduct, createProduct);
+router.post("/menu", validateProduct, createProduct);
 
 router.put("/menu/:id", updateProduct);
 
