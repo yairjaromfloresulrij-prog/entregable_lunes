@@ -3,7 +3,7 @@ import cors from "cors";
 import productRouter from "./routes/productos.router.js";
 import customerRouter from "./routes/customer.routes.js";
 import swaggerRouter from "./routes/swagger.router.js";
-
+import saleRouter from "./routes/sale.routes.js";
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api/docs", swaggerRouter);
-
+app.use("/api", saleRouter);
 app.get("/", (req: Request, res: Response) => {
   res.json({
     status: "Server online",

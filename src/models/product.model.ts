@@ -8,11 +8,30 @@ export interface Producto {
   precio: number;
 }
 
-// OBTENER TODOS
-export async function getAllProducts(): Promise<Producto[]> {
-  const { rows } = await pool.query(
-    "SELECT * FROM productos ORDER BY id_productos ASC;",
-  );
+export async function getAllProducts(
+  maxPrice?: number,
+  page: number = 1,
+  limit: number = 10,
+): Promise<Producto[]> {
+  const offset = (page - 1) * limit;
+
+  const params: number[] = [];
+  let query = "SELECT * FROM productos";
+
+  if (maxPrice !== undefined) {
+    params.push(maxPrice);
+    query += ` WHERE precio <= $${params.length}`;
+  }
+
+  query += " ORDER BY id_productos ASC";
+
+  params.push(limit);
+  query += ` LIMIT $${params.length}`;
+
+  params.push(offset);
+  query += ` OFFSET $${params.length}`;
+
+  const { rows } = await pool.query(query, params);
 
   return rows;
 }
