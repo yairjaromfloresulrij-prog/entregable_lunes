@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx --watch --env-file=.env src/libs/swagger.lib.ts",
+    "swagger": "tsx src/libs/swagger.lib.ts",
     "build": "tsc",
     "start": "tsx dist/index.js"
   },
